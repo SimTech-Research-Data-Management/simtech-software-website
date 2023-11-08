@@ -15,7 +15,7 @@ function TooltipLink(
     }
 ) {
     return (
-        <div className="tooltip tooltip-info scale-90" data-tip={text}>
+        <div className="tooltip tooltip-primary scale-90" data-tip={text}>
             {children}
         </div>
     )
