@@ -7,7 +7,7 @@ export default async function Home() {
   const collections = await fetchDatasets()
 
   return (
-    <div className="p-20">
+    <div className="p-20 safari:scale-95">
       <div className="fixed h-full">
         <h1 className="text-5xl text-neutral-200">SimTech</h1>
         <h2 className="text-3xl text-neutral-200">{"/" + "software"}</h2>
