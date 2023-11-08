@@ -7,13 +7,13 @@ export default async function Home() {
   const collections = await fetchDatasets()
 
   return (
-    <div className="p-24">
+    <div className="p-20">
       <div className="fixed h-full">
         <h1 className="text-5xl text-neutral-200">SimTech</h1>
         <h2 className="text-3xl text-neutral-200">{"/" + "software"}</h2>
       </div>
-      <div className="grid grid-cols-6 my-28">
-        <div className="col-span-2">
+      <div className="grid grid-cols-12 my-28">
+        <div className="col-span-3">
           <div className="fixed h-screen">
             {
               collections.map((collection, index) => (
@@ -29,7 +29,7 @@ export default async function Home() {
             }
           </div>
         </div>
-        <div className="col-span-4">
+        <div className="col-span-9 mx-5">
           {
             collections.map((collection, index) => (
               <div className="flex flex-col mb-10" key={"topic" + index.toString()}>
