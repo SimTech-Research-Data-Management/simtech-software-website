@@ -40,6 +40,7 @@ const config: Config = {
   plugins: [
     require("daisyui"),
     require('tailwindcss-bg-patterns'),
+    require("@igorkowalczyk/is-browser"),
   ],
 }
 export default config

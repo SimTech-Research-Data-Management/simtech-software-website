@@ -29,7 +29,7 @@ export default async function Home() {
             }
           </div>
         </div>
-        <div className="col-span-9 mx-5">
+        <div className="safari:col-span-9 chrome:col-span-8 mx-5">
           {
             collections.map((collection, index) => (
               <div className="flex flex-col mb-10" key={"topic" + index.toString()}>
@@ -42,7 +42,7 @@ export default async function Home() {
                     {collection.name}
                   </h1>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-2 sm:grid-cols-1">
+                <div className="grid grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-0">
                   {collection.datasets.map((dataset: Dataset, index) => (
                     <Card dataset={dataset} key={"entry" + collection.name.toLowerCase() + index} />
                   ))}
