@@ -35,7 +35,8 @@ function fetchCollectionContent(name: string | number) {
     return fetch(COLLECTION_CONTENT(name), {
         headers: {
             'X-Dataverse-key': DATAVERSE_KEY
-        }
+        },
+        next: { revalidate: 10 },
     }).then((res) => res.json()).catch((err) => console.log(err));
 }
 
@@ -43,7 +44,8 @@ function fetchDatasetJson(id: string | number) {
     return fetch(DATASET_JSON(id), {
         headers: {
             'X-Dataverse-key': DATAVERSE_KEY
-        }
+        },
+        next: { revalidate: 10 },
     }).then((res) => res.json()).catch((err) => console.log(err));
 }
 
