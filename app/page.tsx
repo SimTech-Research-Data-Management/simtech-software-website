@@ -34,7 +34,7 @@ export default async function Home() {
             collections.map((collection, index) => (
               <div className="flex flex-col mb-10" key={"topic" + index.toString()}>
                 <div className="flex flex-row place-items-center">
-                  <div className="badge badge-ghost mx-2">{collection.datasets.length}</div>
+                  <div className="badge bg-gray-800 text-gray-400 border-0 mx-2">{collection.datasets.length}</div>
                   <h1
                     className="text-3xl font-medium text-neutral-200"
                     id={collection.name}

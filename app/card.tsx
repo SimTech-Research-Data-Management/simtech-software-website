@@ -47,7 +47,7 @@ export default function Card(
     ));
 
     const languageComponents = programmingLanguages.map((language, index) => (
-        <Tag style="badge-ghost" key={"lang" + index.toString()} name={language} />
+        <Tag style="bg-slate-100 text-gray-800 border-0" key={"lang" + index.toString()} name={language} />
     ));
 
     return (
