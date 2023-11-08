@@ -58,7 +58,6 @@ export default function Card(
                 <div className="flex flex-row justify-between">
                     <p
                         className="card-text"
-                        onClick={() => { window.open(datasetURL) }}
                     >
                         {authorsString}
                     </p>
@@ -67,7 +66,12 @@ export default function Card(
                         persistentIdentifier={dataset.datasetPersistentId}
                     />
                 </div>
-                <h2 className="card-title">{datasetTitle}</h2>
+                <h2
+                    className="card-title"
+                    onClick={() => { window.open(datasetURL) }}
+                >
+                    {datasetTitle}
+                </h2>
                 <div className="card-actions">
                     <div className="flex flex-wrap gap-1">
                         {languageComponents} {keywordsComponents}
