@@ -2,6 +2,7 @@
 
 import { Dataset } from "./types"
 import LinkBar from "./linkbar";
+import getCitationTitle, { getAuthors, getGitHubRepository, getKeywords, getProgrammingLanguages } from "./dsparser";
 
 const DATAVERSE_URL = 'https://darus.uni-stuttgart.de';
 
