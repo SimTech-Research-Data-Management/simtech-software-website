@@ -29,7 +29,7 @@ export default async function Home() {
             }
           </div>
         </div>
-        <div className="safari:col-span-9 chrome:col-span-8 mx-5">
+        <div className="safari:col-span-9 chrome:col-span-9 mx-5">
           {
             collections.map((collection, index) => (
               <div className="flex flex-col mb-10" key={"topic" + index.toString()}>
