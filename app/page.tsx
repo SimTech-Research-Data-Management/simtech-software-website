@@ -16,8 +16,8 @@ export default async function Home() {
         <div className="col-span-2">
           <div className="fixed h-screen">
             {
-              collections.map((collection) => (
-                <div className="flex flex-col">
+              collections.map((collection, index) => (
+                <div className="flex flex-col" key={"sidelem" + index.toString()}>
                   <Link
                     href={"#" + collection.name}
                     className="text-2xl font-thin hover:translate-x-1"
@@ -31,8 +31,8 @@ export default async function Home() {
         </div>
         <div className="col-span-4">
           {
-            collections.map((collection) => (
-              <div className="flex flex-col mb-10">
+            collections.map((collection, index) => (
+              <div className="flex flex-col mb-10" key={"topic" + index.toString()}>
                 <div className="flex flex-row place-items-center">
                   <div className="badge badge-ghost mx-2">{collection.datasets.length}</div>
                   <h1
@@ -43,8 +43,8 @@ export default async function Home() {
                   </h1>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-2 sm:grid-cols-1">
-                  {collection.datasets.map((dataset: Dataset) => (
-                    <Card dataset={dataset} />
+                  {collection.datasets.map((dataset: Dataset, index) => (
+                    <Card dataset={dataset} key={"entry" + collection.name.toLowerCase() + index} />
                   ))}
                 </div>
               </div>

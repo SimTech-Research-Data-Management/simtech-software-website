@@ -42,12 +42,12 @@ export default function Card(
     )
 
     // Components
-    const keywordsComponents = keywords.map((keyword) => (
-        <Tag style="badge-primary" name={keyword} />
+    const keywordsComponents = keywords.map((keyword, index) => (
+        <Tag style="badge-primary" key={"kw" + index.toString()} name={keyword} />
     ));
 
-    const languageComponents = programmingLanguages.map((language) => (
-        <Tag style="badge-ghost" name={language} />
+    const languageComponents = programmingLanguages.map((language, index) => (
+        <Tag style="badge-ghost" key={"lang" + index.toString()} name={language} />
     ));
 
     return (
