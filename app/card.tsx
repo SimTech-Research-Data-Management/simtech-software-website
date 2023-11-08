@@ -1,7 +1,6 @@
 "use client";
 
 import { Dataset } from "./types"
-import getCitationTitle, { getAuthors, getGitHubRepository, getKeywords, getProgrammingLanguages } from "./dsparser"
 import LinkBar from "./linkbar";
 
 const DATAVERSE_URL = 'https://darus.uni-stuttgart.de';
@@ -56,9 +55,7 @@ export default function Card(
         >
             <div className="card-body">
                 <div className="flex flex-row justify-between">
-                    <p
-                        className="card-text"
-                    >
+                    <p className="card-text">
                         {authorsString}
                     </p>
                     <LinkBar
