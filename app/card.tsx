@@ -33,7 +33,7 @@ export default function Card(
     const datasetTitle: string = getCitationTitle(dataset)
     const keywords: string[] = getKeywords(dataset).sort()
     const authors: string[] = getAuthors(dataset)
-    const authorsString: string = authors.join(", ")
+    const authorsString: string = authors.join("; ")
     const gitHubRepositories: string[] = getGitHubRepository(dataset)
     const programmingLanguages: string[] = getProgrammingLanguages(dataset).filter(
         (language) => language !== ""
