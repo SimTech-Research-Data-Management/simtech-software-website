@@ -52,7 +52,7 @@ export default function Card(
 
     return (
         <div
-            className="card w-96 h-34 glass card-compact hover:scale-105 hover:bg-neutral-800 duration-500 my-4 gap-y-2"
+            className="card m-4 w-auto h-34 glass card-compact hover:scale-105 hover:bg-neutral-800 duration-500 my-4 gap-y-2"
             onClick={() => { window.open(datasetURL) }}
         >
             <div className="card-body">
