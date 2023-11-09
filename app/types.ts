@@ -3,6 +3,11 @@ interface CollectionContent {
     data: CollectionItem[];
 }
 
+interface DatasetCollection {
+    name: string;
+    datasets: Dataset[];
+}
+
 interface CollectionItem {
     id: number;
     type: string;
@@ -53,4 +58,4 @@ interface Field {
     datasetFieldType: string;
 }
 
-export type { CollectionContent, CollectionItem, DatasetResponse, DatasetMeta, Dataset, MetadataBlock, Field };
+export type { CollectionContent, CollectionItem, DatasetResponse, DatasetMeta, Dataset, MetadataBlock, Field, DatasetCollection };

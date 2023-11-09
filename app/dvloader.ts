@@ -1,4 +1,4 @@
-import { CollectionContent, CollectionItem, Dataset, DatasetResponse } from "./types";
+import { CollectionContent, CollectionItem, Dataset, DatasetCollection, DatasetResponse } from "./types";
 
 // Basic infos and credentials for the Dataverse API
 const DATAVERSE_URL = 'https://darus.uni-stuttgart.de';
@@ -8,12 +8,6 @@ const DATAVERSE_KEY = "36ab6d45-a695-436a-add0-109950dd254f";
 // Endpoints
 const COLLECTION_CONTENT = (name: string | number) => `${DATAVERSE_URL}/api/dataverses/${name}/contents`;
 const DATASET_JSON = (id: string | number) => `${DATAVERSE_URL}/api/datasets/${id}/versions/:latest`;
-
-// Interfaces
-interface DatasetCollection {
-    name: string;
-    datasets: Dataset[];
-}
 
 export default async function fetchDatasets() {
     const rootCollection: CollectionContent = await fetchCollectionContent(DATAVERSE_ROOT)
