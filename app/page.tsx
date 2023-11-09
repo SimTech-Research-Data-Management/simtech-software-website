@@ -35,7 +35,12 @@ export default async function Home(
           {
             collections.map((collection: DatasetCollection, index: number) => {
               if (searchParams.key === collection.name || searchParams.key === undefined) {
-                return < Collection collection={collection} index={index} />
+                return (
+                  <Collection
+                    collection={collection}
+                    key={"collection" + index.toString()}
+                  />
+                )
               }
             })
           }

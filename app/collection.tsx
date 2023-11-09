@@ -4,14 +4,12 @@ import { CollectionItem, Dataset, DatasetCollection } from "./types";
 export default function Collection(
     {
         collection,
-        index,
     }: {
         collection: DatasetCollection,
-        index: number,
     }
 ) {
     return (
-        <div className="flex flex-col mb-10" key={"topic" + index.toString()}>
+        <div className="flex flex-col mb-10">
             <div className="flex flex-row place-items-center">
                 <div className="badge bg-neutral-800 text-gray-400 border-0 mx-2">{collection.datasets.length}</div>
                 <h1
