@@ -1,4 +1,3 @@
-import { get } from "http";
 import { Dataset, Field } from "./types";
 
 export default function getCitationTitle(dataset: Dataset) {
