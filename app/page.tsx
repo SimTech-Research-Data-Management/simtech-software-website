@@ -31,7 +31,7 @@ export default async function Home(
         <div className="col-span-3">
           <SideBar collections={collections} />
         </div>
-        <div className="safari:col-span-9 chrome:col-span-9 mx-5 -translate-y-24">
+        <div className="col-span-9 mx-5 -translate-y-24">
           {
             collections.map((collection: DatasetCollection, index: number) => {
               if (searchParams.key === collection.name || searchParams.key === undefined) {
