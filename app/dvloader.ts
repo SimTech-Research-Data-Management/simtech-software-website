@@ -3,7 +3,7 @@ import { CollectionContent, CollectionItem, Dataset, DatasetCollection, DatasetR
 // Basic infos and credentials for the Dataverse API
 const DATAVERSE_URL = 'https://darus.uni-stuttgart.de';
 const DATAVERSE_ROOT = 'simtech_software';
-const DATAVERSE_KEY = "36ab6d45-a695-436a-add0-109950dd254f";
+const DATAVERSE_KEY = "3be89818-d34c-422d-a3fb-136d5cd253dc";
 
 // Endpoints
 const COLLECTION_CONTENT = (name: string | number) => `${DATAVERSE_URL}/api/dataverses/${name}/contents`;
