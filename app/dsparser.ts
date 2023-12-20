@@ -68,14 +68,15 @@ export function getAuthors(dataset: Dataset) {
 }
 
 export function getGitHubRepository(dataset: Dataset) {
-    if (!("CodeMeta" in dataset.metadataBlocks)) {
+    if (!("codeMeta20" in dataset.metadataBlocks)) {
         return [""];
     }
 
-    const codeMeta = dataset.metadataBlocks.CodeMeta;
+    const codeMeta = dataset.metadataBlocks.codeMeta20;
+    console.log(codeMeta)
 
     const repositoryField: Field | undefined = codeMeta.fields.find(
-        (field: Field) => field.typeName === 'codeMetaCodeRepository'
+        (field: Field) => field.typeName === 'codeRepository'
     );
 
     if (!repositoryField) {
@@ -95,14 +96,14 @@ export function getGitHubRepository(dataset: Dataset) {
 }
 
 export function getProgrammingLanguages(dataset: Dataset) {
-    if (!("CodeMeta" in dataset.metadataBlocks)) {
+    if (!("codeMeta20" in dataset.metadataBlocks)) {
         return [""];
     }
 
-    const codeMeta = dataset.metadataBlocks.CodeMeta;
+    const codeMeta = dataset.metadataBlocks.codeMeta20;
 
     const programmingLanguageField: Field | undefined = codeMeta.fields.find(
-        (field: Field) => field.typeName === 'codeMetaProgrammingLanguage'
+        (field: Field) => field.typeName === 'programmingLanguage'
     );
 
     if (!programmingLanguageField) {
