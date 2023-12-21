@@ -8,6 +8,7 @@ export default function Collection(
         collection: DatasetCollection,
     }
 ) {
+
     return (
         <div className="flex flex-col mb-10">
             <div className="flex flex-row place-items-center">
