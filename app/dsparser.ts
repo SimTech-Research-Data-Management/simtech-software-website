@@ -73,8 +73,6 @@ export function getGitHubRepository(dataset: Dataset) {
     }
 
     const codeMeta = dataset.metadataBlocks.codeMeta20;
-    console.log(codeMeta)
-
     const repositoryField: Field | undefined = codeMeta.fields.find(
         (field: Field) => field.typeName === 'codeRepository'
     );
