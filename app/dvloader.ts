@@ -8,18 +8,52 @@ const DATAVERSE_KEY = "3be89818-d34c-422d-a3fb-136d5cd253dc";
 // Endpoints
 const COLLECTION_CONTENT = (name: string | number) => `${DATAVERSE_URL}/api/dataverses/${name}/contents`;
 const DATASET_JSON = (id: string | number) => `${DATAVERSE_URL}/api/datasets/${id}/versions/:latest`;
+const DATASET_JSON_PID = (pid: string) => `${DATAVERSE_URL}/api/datasets/:persistentId/versions/:latest?persistentId=${pid}`;
+
+// List of linked Datasets (cannot be fetched by API 😵)
+const LINKED_DATASETS: { [key: string]: string[] } = {
+    "Simulation Software": [
+        "doi:10.18419/darus-3839",
+        "doi:10.18419/darus-3788",
+        "doi:10.18419/darus-3764",
+        "doi:10.18419/darus-3405",
+        "doi:10.18419/darus-3247",
+        "doi:10.18419/darus-2125",
+    ]
+}
 
 export default async function fetchDatasets() {
     const rootCollection: CollectionContent = await fetchCollectionContent(DATAVERSE_ROOT)
     const subCollections: CollectionItem[] = getSubCollectionsFromCollection(rootCollection);
-    const collectionDatasets: DatasetCollection[] = await Promise.all(
+    let collectionDatasets: DatasetCollection[] = await Promise.all(
         subCollections.map(async (collection: CollectionItem) => {
-            const subDatasets: Dataset[] = await fetchAllCollectionDatasets(collection);
+            let subDatasets: Dataset[] = await fetchAllCollectionDatasets(collection);
+
+            if (LINKED_DATASETS[collection.title]) {
+                const linkedDatasets: Dataset[] = await fetchLinkedDatasets(collection.title)
+                subDatasets = subDatasets.concat(linkedDatasets);
+            }
+
+            subDatasets = subDatasets.sort(compareDatasetTitles);
+
             return {
                 name: collection.title,
                 datasets: subDatasets
             };
         }));
+
+    // Sort collections by name
+    collectionDatasets = collectionDatasets.sort((a: DatasetCollection, b: DatasetCollection) => {
+        if (a.name < b.name) {
+            return -1;
+        }
+
+        if (a.name > b.name) {
+            return 1;
+        }
+
+        return 0;
+    });
 
     return collectionDatasets;
 }
@@ -43,6 +77,15 @@ function fetchDatasetJson(id: string | number) {
     }).then((res) => res.json()).catch((err) => console.log(err));
 }
 
+function fetchDatasetJsonByPID(pid: string) {
+    return fetch(DATASET_JSON_PID(pid), {
+        headers: {
+            'X-Dataverse-key': DATAVERSE_KEY
+        },
+        next: { revalidate: 10 },
+    }).then((res) => res.json()).catch((err) => console.log(err));
+}
+
 async function fetchAllCollectionDatasets(collection: CollectionItem) {
     const content: CollectionContent = await fetchCollectionContent(collection.id);
     const dsRefs: CollectionItem[] = getDatasetsFromCollection(content);
@@ -53,6 +96,18 @@ async function fetchAllCollectionDatasets(collection: CollectionItem) {
     }));
 }
 
+
+async function fetchLinkedDatasets(collectionName: string) {
+    const linkedDatasets: Dataset[] = await Promise.all(
+        LINKED_DATASETS[collectionName].map(async (pid: string) => {
+            const response: DatasetResponse = await fetchDatasetJsonByPID(pid);
+            return response.data;
+        })
+    );
+
+    return linkedDatasets;
+}
+
 // Collection functions
 function getDatasetsFromCollection(collection: CollectionContent) {
     return collection.data.filter((item: any) => item.type === 'dataset');
@@ -60,4 +115,25 @@ function getDatasetsFromCollection(collection: CollectionContent) {
 
 function getSubCollectionsFromCollection(collection: CollectionContent) {
     return collection.data.filter((item: any) => item.type === 'dataverse');
+}
+
+// Sorting function
+function compareDatasetTitles(a: Dataset, b: Dataset) {
+    const aTitle = getDatasetTitle(a);
+    const bTitle = getDatasetTitle(b);
+
+    if (aTitle < bTitle) {
+        return -1;
+    }
+
+    if (aTitle > bTitle) {
+        return 1;
+    }
+
+    return 0;
+}
+
+function getDatasetTitle(dataset: Dataset) {
+    // @ts-ignore
+    return dataset.metadataBlocks.citation.fields.find((field: any) => field.typeName === 'title').value;
 }
