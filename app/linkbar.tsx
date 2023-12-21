@@ -34,6 +34,9 @@ export default function LinkBar(
     // Metadata
     const dvLink = `${DATAVERSE_ROOT}/dataset.xhtml?persistentId=` + persistentIdentifier
 
+    // Filter empty links
+    gitHubRepositories = gitHubRepositories.filter((link) => link !== "")
+
     return (
         <div className="flex flex-row gap-2">
             {
