@@ -80,7 +80,7 @@ function fetchCollectionContent(name: string | number) {
     headers: {
       "X-Dataverse-key": DATAVERSE_KEY,
     },
-    next: { revalidate: 10 },
+    next: { revalidate: 360 },
   })
     .then((res) => res.json())
     .catch((err) => console.log(err));
@@ -91,7 +91,7 @@ function fetchDatasetJson(id: string | number) {
     headers: {
       "X-Dataverse-key": DATAVERSE_KEY,
     },
-    next: { revalidate: 10 },
+    next: { revalidate: 360 },
   })
     .then((res) => res.json())
     .catch((err) => console.log(err));
@@ -102,7 +102,7 @@ function fetchDatasetJsonByPID(pid: string) {
     headers: {
       "X-Dataverse-key": DATAVERSE_KEY,
     },
-    next: { revalidate: 10 },
+    next: { revalidate: 360 },
   })
     .then((res) => res.json())
     .catch((err) => console.log(err));
