@@ -76,6 +76,10 @@ export default async function fetchDatasets() {
 
 // Fetch functions
 function fetchCollectionContent(name: string | number) {
+  if (!DATAVERSE_KEY) {
+    throw new Error("No Dataverse API key provided");
+  }
+
   return fetch(COLLECTION_CONTENT(name), {
     headers: {
       "X-Dataverse-key": DATAVERSE_KEY,
@@ -87,6 +91,10 @@ function fetchCollectionContent(name: string | number) {
 }
 
 function fetchDatasetJson(id: string | number) {
+  if (!DATAVERSE_KEY) {
+    throw new Error("No Dataverse API key provided");
+  }
+
   return fetch(DATASET_JSON(id), {
     headers: {
       "X-Dataverse-key": DATAVERSE_KEY,
@@ -98,6 +106,10 @@ function fetchDatasetJson(id: string | number) {
 }
 
 function fetchDatasetJsonByPID(pid: string) {
+  if (!DATAVERSE_KEY) {
+    throw new Error("No Dataverse API key provided");
+  }
+
   return fetch(DATASET_JSON_PID(pid), {
     headers: {
       "X-Dataverse-key": DATAVERSE_KEY,
