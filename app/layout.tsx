@@ -1,24 +1,25 @@
-import './globals.css'
+import "./globals.css";
+import Drawer from "@/app/drawer";
 
 export const metadata = {
-  title: 'SimTech-Software',
-  description: 'Web-based tool to explore SimTech software',
-}
+  title: "SimTech-Software",
+  description: "Web-based tool to explore SimTech software",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body
-        className="bg-black overscroll-none min-h-screen pattern-wavy pattern-gray-900 pattern-bg-black pattern-size-32 pattern-opacity-100"
-      >
+    <html lang="en" data-theme="simtech">
+      <body className="bg-[url('../public/bg.svg')] bg-cover overscroll-none min-h-screen">
         <main>
-          {children}
+            <div className="flex flex-row md:mx-24">
+                {children}
+            </div>
         </main>
       </body>
-    </html >
-  )
+    </html>
+  );
 }

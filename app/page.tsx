@@ -17,16 +17,13 @@ export default async function Home({
   const collections = await fetchDatasets();
 
   return (
-    <div className="p-20">
-      <div className="fixed h-full">
-        <h1 className="text-5xl text-neutral-200">SimTech</h1>
-        <h2 className="text-3xl text-neutral-200">{"/" + "software"}</h2>
-      </div>
-      <div className="grid grid-cols-12 my-28">
-        <div className="col-span-3">
+    <div className="px-6">
+      <div className="grid grid-cols-12 h-screen">
+        <div className="hidden md:block md:col-span-2">
           <SideBar collections={collections} />
         </div>
-        <div className="col-span-9 mx-5 -translate-y-24">
+        <div className="col-span-12 md:col-span-10 mx-5 overflow-y-scroll scrollbar-hide md:ml-24">
+          <div className="h-34 my-12" />
           {collections.map((collection: DatasetCollection, index: number) => {
             if (
               searchParams.key === collection.name ||

@@ -1,18 +1,21 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    fontFamily: {
+      "sans": ["Open Sans"],
+    },
+    screens: {
+      'sm': '576px',
+      'md': '1280px',
+      'lg': '1440px',
+    },
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      },
     },
   },
   patterns: {
@@ -35,12 +38,29 @@ const config: Config = {
       20: "5rem",
       24: "6rem",
       32: "8rem",
-    }
+    },
+  },
+  daisyui: {
+    themes: [
+      {
+        simtech: {
+          primary: "#015CAB",
+          secondary: "#00beff",
+          accent: "#00cdb7",
+          neutral: "#DDDDDD",
+          "base-100": "#1f2937",
+          info: "#00BEFF",
+          success: "#9affdc",
+          warning: "#ffbe00",
+          error: "#ff5861",
+        },
+      },
+    ],
   },
   plugins: [
     require("daisyui"),
-    require('tailwindcss-bg-patterns'),
     require("@igorkowalczyk/is-browser"),
+    require("tailwind-scrollbar-hide"),
   ],
-}
-export default config
+};
+export default config;

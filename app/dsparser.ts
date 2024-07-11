@@ -1,120 +1,133 @@
 import { Dataset, Field } from "./types";
+import { stripHtml } from "string-strip-html";
+
+export function getDescriptions(dataset: Dataset) {
+  const citation = dataset.metadataBlocks.citation;
+  const description = citation.fields.find(
+    (field: Field) => field.typeName === "dsDescription",
+  );
+
+  if (!description) {
+    return "";
+  }
+
+  return stripHtml(description.value[0].dsDescriptionValue.value).result;
+}
 
 export default function getCitationTitle(dataset: Dataset) {
-    const citation = dataset.metadataBlocks.citation;
-    const title = citation.fields.find((field: Field) => field.typeName === 'title');
+  const citation = dataset.metadataBlocks.citation;
+  const title = citation.fields.find(
+    (field: Field) => field.typeName === "title",
+  );
 
-    if (!title) {
-        return '';
-    }
+  if (!title) {
+    return "";
+  }
 
-    if (typeof title.value === 'string') {
-        return title.value;
-    }
+  if (typeof title.value === "string") {
+    return title.value;
+  }
 
-    return ""
+  return "";
 }
 
 export function getKeywords(dataset: Dataset) {
-    const citation = dataset.metadataBlocks.citation;
-    const keywordCompound: Field | undefined = citation.fields.find(
-        (field: Field) => field.typeName === 'keyword'
-    );
+  const citation = dataset.metadataBlocks.citation;
+  const keywordCompound: Field | undefined = citation.fields.find(
+    (field: Field) => field.typeName === "keyword",
+  );
 
-    if (!keywordCompound || !Array.isArray(keywordCompound.value)) {
-        return [];
-    }
+  if (!keywordCompound || !Array.isArray(keywordCompound.value)) {
+    return [];
+  }
 
-    const keywords: string[] = keywordCompound.value.map(
-        (field: { [key: string]: Field }) => {
+  const keywords: string[] = keywordCompound.value.map(
+    (field: { [key: string]: Field }) => {
+      const keywordValue: Field | undefined = field["keywordValue"];
 
-            const keywordValue: Field | undefined = field["keywordValue"]
+      if (typeof keywordValue?.value === "string") {
+        return keywordValue.value.toLowerCase();
+      }
 
-            if (typeof keywordValue?.value === 'string') {
-                return keywordValue.value.toLowerCase()
-            }
+      throw new Error("Keyword value is not a string");
+    },
+  );
 
-            throw new Error('Keyword value is not a string')
-        }
-    )
-
-    return keywords
+  return keywords;
 }
 
 export function getAuthors(dataset: Dataset) {
-    const citation = dataset.metadataBlocks.citation;
-    const authorCompound: Field | undefined = citation.fields.find(
-        (field: Field) => field.typeName === 'author'
-    );
+  const citation = dataset.metadataBlocks.citation;
+  const authorCompound: Field | undefined = citation.fields.find(
+    (field: Field) => field.typeName === "author",
+  );
 
-    if (!authorCompound || !Array.isArray(authorCompound.value)) {
-        return [];
-    }
+  if (!authorCompound || !Array.isArray(authorCompound.value)) {
+    return [];
+  }
 
-    const authors: string[] = authorCompound.value.map(
-        (field: { [key: string]: Field }) => {
+  const authors: string[] = authorCompound.value.map(
+    (field: { [key: string]: Field }) => {
+      const authorName: Field | undefined = field["authorName"];
 
-            const authorName: Field | undefined = field["authorName"]
+      if (typeof authorName?.value === "string") {
+        return authorName.value;
+      }
 
-            if (typeof authorName?.value === 'string') {
-                return authorName.value
-            }
+      throw new Error("Author name is not a string");
+    },
+  );
 
-            throw new Error('Author name is not a string')
-        }
-    )
-
-    return authors
+  return authors;
 }
 
 export function getGitHubRepository(dataset: Dataset) {
-    if (!("codeMeta20" in dataset.metadataBlocks)) {
-        return [""];
-    }
+  if (!("codeMeta20" in dataset.metadataBlocks)) {
+    return [""];
+  }
 
-    const codeMeta = dataset.metadataBlocks.codeMeta20;
-    const repositoryField: Field | undefined = codeMeta.fields.find(
-        (field: Field) => field.typeName === 'codeRepository'
-    );
+  const codeMeta = dataset.metadataBlocks.codeMeta20;
+  const repositoryField: Field | undefined = codeMeta.fields.find(
+    (field: Field) => field.typeName === "codeRepository",
+  );
 
-    if (!repositoryField) {
-        return [""];
-    }
+  if (!repositoryField) {
+    return [""];
+  }
 
-    if (typeof repositoryField.value === 'string') {
-        return [repositoryField.value];
-    }
+  if (typeof repositoryField.value === "string") {
+    return [repositoryField.value];
+  }
 
-    if (Array.isArray(repositoryField.value)) {
-        return repositoryField.value;
-    } else {
-        throw new Error('Repository field is not a string or array')
-    }
-
+  if (Array.isArray(repositoryField.value)) {
+    return repositoryField.value;
+  } else {
+    throw new Error("Repository field is not a string or array");
+  }
 }
 
 export function getProgrammingLanguages(dataset: Dataset) {
-    if (!("codeMeta20" in dataset.metadataBlocks)) {
-        return [""];
-    }
+  if (!("codeMeta20" in dataset.metadataBlocks)) {
+    return [""];
+  }
 
-    const codeMeta = dataset.metadataBlocks.codeMeta20;
+  const codeMeta = dataset.metadataBlocks.codeMeta20;
 
-    const programmingLanguageField: Field | undefined = codeMeta.fields.find(
-        (field: Field) => field.typeName === 'programmingLanguage'
-    );
+  const programmingLanguageField: Field | undefined = codeMeta.fields.find(
+    (field: Field) => field.typeName === "programmingLanguage",
+  );
 
-    if (!programmingLanguageField) {
-        return [""];
-    }
+  if (!programmingLanguageField) {
+    return [""];
+  }
 
-    if (typeof programmingLanguageField.value === 'string') {
-        return [programmingLanguageField.value];
-    }
+  if (typeof programmingLanguageField.value === "string") {
+    return [programmingLanguageField.value];
+  }
 
-    if (Array.isArray(programmingLanguageField.value)) {
-        return programmingLanguageField.value;
-    } else {
-        throw new Error('Programming language field is not a string or array')
-    }
+  if (Array.isArray(programmingLanguageField.value)) {
+    return programmingLanguageField.value;
+  } else {
+    throw new Error("Programming language field is not a string or array");
+  }
 }
