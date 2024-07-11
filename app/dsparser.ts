@@ -11,7 +11,11 @@ export function getDescriptions(dataset: Dataset) {
     return "";
   }
 
-  return stripHtml(description.value[0].dsDescriptionValue.value).result;
+  if (typeof description.value === "string") {
+      return stripHtml(description.value).result;
+  } else {
+    throw new Error("Description is not a string");
+  }
 }
 
 export default function getCitationTitle(dataset: Dataset) {

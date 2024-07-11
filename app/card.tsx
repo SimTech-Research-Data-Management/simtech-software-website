@@ -38,8 +38,6 @@ export default function Card({ dataset }: { dataset: Dataset }) {
     authorsString = authors.join("; ");
   }
 
-  console.log(datasetDescription);
-
   // Components
   const keywordsComponents = keywords.map((keyword, index) => (
     <Tag
