@@ -14,7 +14,7 @@ export function getDescriptions(dataset: Dataset) {
   if (typeof description.value === "string") {
       return stripHtml(description.value).result;
   } else {
-    throw new Error("Description is not a string");
+      return "";
   }
 }
 
