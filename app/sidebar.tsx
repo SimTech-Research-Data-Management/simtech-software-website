@@ -16,7 +16,7 @@ export default function SideBar({
         width={200}
         height={100}
       />
-      <div className="flex flex-col gap-3 py-10">
+      <div className="flex flex-col gap-2 py-10">
         <div className="flex flex-col" key={"sidelemAll"}>
           <Link
             href="/"
@@ -34,7 +34,7 @@ export default function SideBar({
             <div className="flex flex-col" key={"sidelem" + index.toString()}>
               <Link
                 href={"/?key=" + collection.name}
-                className="text-md text-base-100 hover:translate-x-1 duration-300"
+                className="text-lg text-base-100 hover:translate-x-1 duration-300"
               >
                 {collection.name}
               </Link>
