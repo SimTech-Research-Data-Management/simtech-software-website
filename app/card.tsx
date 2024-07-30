@@ -73,9 +73,11 @@ export default function Card({ dataset }: { dataset: Dataset }) {
         >
           {datasetTitle}
         </h2>
-        <p className="card-text mb-3 mt-1 text-base-100 font-light text-md text-justify">
-          {datasetDescription.trim()}
-        </p>
+        <div className="hidden md:block">
+          <p className="card-text mb-3 mt-1 text-base-100 font-light text-md text-justify">
+            {datasetDescription.trim()}
+          </p>
+        </div>
         <div className="card-actions">
           <div className="flex flex-wrap gap-3 mt-2">
             {languageComponents}
