@@ -34,7 +34,7 @@ export default function SideBar({
             <div className="flex flex-col" key={"sidelem" + index.toString()}>
               <Link
                 href={"/?key=" + collection.name}
-                className="text-xl text-base-100 hover:translate-x-1 duration-300"
+                className="text-md text-base-100 hover:translate-x-1 duration-300"
               >
                 {collection.name}
               </Link>
