@@ -11,10 +11,11 @@ export default async function Home({
   params,
   searchParams,
 }: {
-  params: { slug: string };
-  searchParams: queryParams;
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<queryParams>;
 }) {
   const collections = await fetchDatasets();
+  const resolvedSearchParams = await searchParams;
 
   return (
     <div className="px-6">
@@ -26,8 +27,8 @@ export default async function Home({
           <div className="h-34 my-12" />
           {collections.map((collection: DatasetCollection, index: number) => {
             if (
-              searchParams.key === collection.name ||
-              searchParams.key === undefined
+              resolvedSearchParams.key === collection.name ||
+              resolvedSearchParams.key === undefined
             ) {
               return (
                 <Collection
