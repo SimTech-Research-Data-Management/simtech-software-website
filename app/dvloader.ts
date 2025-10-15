@@ -86,8 +86,16 @@ function fetchCollectionContent(name: string | number) {
     },
     next: { revalidate: 360 },
   })
-    .then((res) => res.json())
-    .catch((err) => console.log(err));
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      return res.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { status: "error", data: [] }; // Return fallback structure
+    });
 }
 
 function fetchDatasetJson(id: string | number) {
@@ -101,8 +109,16 @@ function fetchDatasetJson(id: string | number) {
     },
     next: { revalidate: 360 },
   })
-    .then((res) => res.json())
-    .catch((err) => console.log(err));
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      return res.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { status: "error", data: null }; // Return fallback structure
+    });
 }
 
 function fetchDatasetJsonByPID(pid: string) {
@@ -116,8 +132,16 @@ function fetchDatasetJsonByPID(pid: string) {
     },
     next: { revalidate: 360 },
   })
-    .then((res) => res.json())
-    .catch((err) => console.log(err));
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      return res.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { status: "error", data: null }; // Return fallback structure
+    });
 }
 
 async function fetchAllCollectionDatasets(collection: CollectionItem) {
@@ -126,7 +150,7 @@ async function fetchAllCollectionDatasets(collection: CollectionItem) {
   );
   const dsRefs: CollectionItem[] = getDatasetsFromCollection(content);
 
-  return await Promise.all(
+  const datasets = await Promise.all(
     dsRefs.map(async (ds: CollectionItem) => {
       const response: DatasetResponse = await fetchDatasetJson(
         ds.id.toString(),
@@ -134,6 +158,9 @@ async function fetchAllCollectionDatasets(collection: CollectionItem) {
       return response.data;
     }),
   );
+
+  // Filter out null/undefined datasets
+  return datasets.filter((dataset) => dataset != null);
 }
 
 async function fetchLinkedDatasets(collectionName: string) {
@@ -144,15 +171,22 @@ async function fetchLinkedDatasets(collectionName: string) {
     }),
   );
 
-  return linkedDatasets;
+  // Filter out null/undefined datasets
+  return linkedDatasets.filter((dataset) => dataset != null);
 }
 
 // Collection functions
 function getDatasetsFromCollection(collection: CollectionContent) {
+  if (!collection || !collection.data || !Array.isArray(collection.data)) {
+    return [];
+  }
   return collection.data.filter((item: any) => item.type === "dataset");
 }
 
 function getSubCollectionsFromCollection(collection: CollectionContent) {
+  if (!collection || !collection.data || !Array.isArray(collection.data)) {
+    return [];
+  }
   return collection.data.filter((item: any) => item.type === "dataverse");
 }
 
@@ -173,8 +207,14 @@ function compareDatasetTitles(a: Dataset, b: Dataset) {
 }
 
 function getDatasetTitle(dataset: Dataset) {
-  // @ts-ignore
-  return dataset.metadataBlocks.citation.fields.find(
-    (field: any) => field.typeName === "title",
-  ).value;
+  try {
+    // @ts-ignore
+    const titleField = dataset.metadataBlocks?.citation?.fields?.find(
+      (field: any) => field.typeName === "title",
+    );
+    return titleField?.value || "Untitled Dataset";
+  } catch (error) {
+    console.log("Error getting dataset title:", error);
+    return "Untitled Dataset";
+  }
 }
