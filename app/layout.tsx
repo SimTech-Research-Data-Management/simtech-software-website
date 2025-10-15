@@ -15,9 +15,9 @@ export default function RootLayout({
     <html lang="en" data-theme="simtech">
       <body className="bg-[url('../public/bg.svg')] bg-cover overscroll-none min-h-screen">
         <main>
-            <div className="flex flex-row md:mx-24">
-                {children}
-            </div>
+          <div className="flex flex-row md:pl-24">
+            {children}
+          </div>
         </main>
       </body>
     </html>

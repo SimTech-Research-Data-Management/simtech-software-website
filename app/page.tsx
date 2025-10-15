@@ -18,12 +18,12 @@ export default async function Home({
   const resolvedSearchParams = await searchParams;
 
   return (
-    <div className="px-6">
+    <div className="pl-6">
       <div className="grid grid-cols-12 h-screen">
         <div className="hidden md:block md:col-span-2">
           <SideBar collections={collections} />
         </div>
-        <div className="col-span-12 md:col-span-10 mx-5 overflow-y-scroll scrollbar-hide md:ml-24">
+        <div className="col-span-12 md:col-span-10 ml-5 overflow-y-scroll md:ml-24 md:pr-24">
           <div className="h-34 my-12" />
           {collections.map((collection: DatasetCollection, index: number) => {
             if (

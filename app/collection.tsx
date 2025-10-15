@@ -14,7 +14,7 @@ export default function Collection({
     <div className="flex flex-col mb-10 min-w-full">
       <div className="flex flex-row place-items-center">
         <h1
-          className="text-3xl px-4 py-2 font-bold text-base-100 "
+          className="text-3xl pl-4 py-2 font-bold text-base-100 "
           id={collection.name}
         >
           {collection.name}
